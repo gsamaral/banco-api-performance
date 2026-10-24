@@ -1,6 +1,6 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
-
+const postLogin = JSON.parse(open('./fixtures/postLogin.json'));
 export const options = {
   //vus: 10,
   //duration: '5m',
@@ -10,7 +10,7 @@ export const options = {
   }, 
   //Definindo os estágios do teste de carga que simula o aumento e diminuição de usuários virtuais ao longo do tempo
   stages: [
-    { duration: '1m', target: 10 },
+    { duration: '1m', target: 100 },
     { duration: '3m', target: 10 },
     { duration: '1m', target: 0 },
   ],
@@ -18,10 +18,10 @@ export const options = {
 };
 
 export default function () {
-    const url = 'http://localhost:3000/login';
+  const url = 'http://localhost:3000/login';
   const payload = JSON.stringify({
-    username: 'julio.lima',
-    senha: '123456',
+    username: __ENV.LOGIN_USERNAME || 'julio.lima',
+    senha: __ENV.LOGIN_PASSWORD || '123456',
   });
 
   const params = {
