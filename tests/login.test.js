@@ -1,5 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
+import { pegarBaseUrl } from '../utils/variaveis';
+
 const postLogin = JSON.parse(open('./fixtures/postLogin.json'));
 export const options = {
   //vus: 10,
@@ -18,7 +20,7 @@ export const options = {
 };
 
 export default function () {
-  const url = 'http://localhost:3000/login';
+  const url = `${pegarBaseUrl()}/login`;
   const payload = JSON.stringify({
     username: __ENV.LOGIN_USERNAME || 'julio.lima',
     senha: __ENV.LOGIN_PASSWORD || '123456',
