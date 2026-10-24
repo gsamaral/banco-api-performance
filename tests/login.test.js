@@ -2,12 +2,19 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 
 export const options = {
-  vus: 10,
-  duration: '5m',
+  //vus: 10,
+  //duration: '5m',
   tresholds: {
     http_req_duration: ['p(95) < 300','max<500'],
     http_req_failed: ['rate<0.01'],
-  },
+  }, 
+  //Definindo os estágios do teste de carga que simula o aumento e diminuição de usuários virtuais ao longo do tempo
+  stages: [
+    { duration: '1m', target: 10 },
+    { duration: '3m', target: 10 },
+    { duration: '1m', target: 0 },
+  ],
+  
 };
 
 export default function () {
