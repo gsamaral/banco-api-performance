@@ -8,7 +8,7 @@ export const options = {
 export default function () {
 
   const token = obterToken();
-
+  //teste no endpoint de transferencias
   const url = 'http://localhost:3000/transferencias';
 
   const payload = JSON.stringify({
